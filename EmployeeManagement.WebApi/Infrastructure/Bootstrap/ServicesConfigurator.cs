@@ -7,6 +7,8 @@ using System.Reflection;
 using System;
 using EmployeeManagement.WebApi.Domain;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo;
+using EmployeeManagement.WebApi.Model.API.Request;
+using EmployeeManagement.WebApi.Model.API;
 
 namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
 {
@@ -30,7 +32,30 @@ namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
 
             return services;
         }
+        /// <summary>
+        /// Adds the swagger related information
+        /// </summary>
+        /// <param name="services">Service collection object</param>
+        /// <returns>Modified service collection object</returns>
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        {
+            return services
+                .AddSwaggerGen(options =>
+                {                    
+                    options.UseInlineDefinitionsForEnums();
 
+                    // Includes documentation about the derived types.
+                    options.UseAllOfForInheritance();
+                    options.UseOneOfForPolymorphism();
+
+                    // Set the comments path for the Swagger JSON and UI.
+                    string xmlPathForApi = GetSwaggerDocumentationFilePath(Assembly.GetExecutingAssembly());
+                    options.IncludeXmlComments(xmlPathForApi);
+
+                    string xmlPathForModels = GetSwaggerDocumentationFilePath(typeof(CreateEmployeeRequestObject).Assembly);
+                    options.IncludeXmlComments(xmlPathForModels);
+                });
+        }
         private static string GetSwaggerDocumentationFilePath(Assembly assembly)
         {
             var commentsFileName = assembly.GetName().Name + ".xml";

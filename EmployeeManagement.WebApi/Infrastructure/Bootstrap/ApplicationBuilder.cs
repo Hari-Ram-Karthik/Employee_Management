@@ -36,7 +36,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
         {
             builder.Services
                 .AddServices(settings)
-                .AddSwaggerGen()
+                .AddSwagger()
                 .AddControllers();
             
             return builder;
