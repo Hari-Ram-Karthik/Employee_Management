@@ -1,6 +1,8 @@
 ﻿using EmployeeManagement.WebApi.Domain.Model;
 using EmployeeManagement.WebApi.Infrastructure.Mappers;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
+using EmployeeManagement.WebApi.Model.API.Request;
+using EmployeeManagement.WebApi.Model.API.Responses;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
@@ -11,15 +13,13 @@ namespace EmployeeManagement.WebApi.Domain
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMappingCoordinator _mappingCoordinator;
 
-        public EmployeeDomainService(IEmployeeRepository employeeRepository,IMappingCoordinator mappingCoordinator)
+        public EmployeeDomainService(IEmployeeRepository employeeRepository, IMappingCoordinator mappingCoordinator)
         {
             _employeeRepository = employeeRepository;
             _mappingCoordinator = mappingCoordinator;
-
         }
 
-
-        public async Task CreateEmployeeAsync(IEnumerable<CreateEmployeeRequestModel> employeesToBeCreated)
+        public async Task<IEnumerable<EmployeeModel>> CreateEmployeeAsync(IEnumerable<CreateEmployeeRequestModel> employeesToBeCreated)
         {
             List<CreateEmployeeRequestModel> employeesToBeCreatedList = employeesToBeCreated.ToList();
             List<EmployeeModel> employees = _mappingCoordinator.Map<CreateEmployeeRequestModel, EmployeeModel>(employeesToBeCreatedList).ToList();
@@ -28,12 +28,9 @@ namespace EmployeeManagement.WebApi.Domain
                 employee.CreatedAt = DateTime.UtcNow;
                 employee.UpdatedAt = DateTime.UtcNow;
             });
-            
 
-            if (employeesToBeCreated.Any())
-            {
-                IEnumerable<EmployeeEntity> employeeEntities = await _employeeRepository.InsertEmployeesAsync(employees);
-            }
+            IEnumerable<EmployeeModel> employeeModels = await _employeeRepository.InsertEmployeesAsync(employees);
+            return employeeModels;
         }
     }
 }

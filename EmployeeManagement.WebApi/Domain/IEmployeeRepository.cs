@@ -13,6 +13,6 @@ namespace EmployeeManagement.WebApi.Domain
         /// Insert the given employee to database.
         /// </summary>
         /// <param name="employeeToBeCreated">Employee to be created</param>
-        Task<IEnumerable<EmployeeEntity>> InsertEmployeesAsync(IEnumerable<EmployeeModel> employeeToBeCreated);
+        Task<IEnumerable<EmployeeModel>> InsertEmployeesAsync(IEnumerable<EmployeeModel> employeeToBeCreated);
     }
 }

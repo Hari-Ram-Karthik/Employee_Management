@@ -31,20 +31,26 @@ namespace EmployeeManagement.WebApi.Controllers
             _employeeDomainService = employeeDomainService;
             _mappingCoordinator = mappingCoordinator;
         }
-        /// <summary>
-        /// asjdgi
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
 
+        /// <summary>
+        /// Creates one or more employee
+        /// </summary>
+        /// <param name="request">Information to create employee</param>
+        /// <response code="201">Create Employee Success Response</response>
         [HttpPost]
-        [ProducesResponseType(typeof(CreateEmployeeResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CreateEmployeeResponse), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.NotImplemented)]
         public async Task<IActionResult> CreateEmployeeAsync(CreateEmployeeRequest request)
         {
             IEnumerable<CreateEmployeeRequestModel> employeeToBeCreated= _mappingCoordinator.Map<CreateEmployeeRequestObject, CreateEmployeeRequestModel>(request.Employee);
-            await _employeeDomainService.CreateEmployeeAsync(employeeToBeCreated);
-            return Ok(employeeToBeCreated);
+            IEnumerable < EmployeeModel > employeesCreated = await _employeeDomainService.CreateEmployeeAsync(employeeToBeCreated);
+
+            CreateEmployeeResponse response = new()
+            {
+                CreatedEmployee = _mappingCoordinator.Map<EmployeeModel, CreateEmployeeResponseObject>((employeesCreated.ToList())).ToList()
+            };
+
+            return Json(response,HttpStatusCode.Created);
         }
 
 
@@ -77,6 +83,14 @@ namespace EmployeeManagement.WebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        private JsonResult Json(object value, HttpStatusCode httpStatusCode)
+        {
+            return new JsonResult(value)
+            {
+                StatusCode = (int)httpStatusCode
+            };
         }
     }
 }

@@ -3,6 +3,7 @@ using AutoMapper;
 using EmployeeManagement.WebApi.Domain.Model;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
 using EmployeeManagement.WebApi.Model.API.Request;
+using EmployeeManagement.WebApi.Model.API.Responses;
 
 namespace EmployeeManagement.WebApi.Infrastructure.Mappers
 {
@@ -50,6 +51,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Mappers
         private void MapDomainToController(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestModel, CreateEmployeeRequestObject>();
+            cfg.CreateMap<EmployeeModel, CreateEmployeeResponseObject>();
         }
 
         private void MapDomainToEntity(IMapperConfigurationExpression cfg)

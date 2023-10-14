@@ -14,6 +14,6 @@ namespace EmployeeManagement.WebApi.Domain
         /// </summary>
         /// <param name="employeeRequest">Employee to be created in request format</param>
         /// <returns>A <see cref="Task"/> to await the create operation</returns>
-        Task CreateEmployeeAsync(IEnumerable<CreateEmployeeRequestModel> employeeRequest);
+        Task<IEnumerable<EmployeeModel>> CreateEmployeeAsync(IEnumerable<CreateEmployeeRequestModel> employeeRequest);
     }
 }

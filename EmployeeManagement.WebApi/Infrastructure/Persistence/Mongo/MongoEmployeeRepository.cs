@@ -39,7 +39,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo
         }
 
 
-        public async Task<IEnumerable<EmployeeEntity>> InsertEmployeesAsync(IEnumerable<EmployeeModel> employeesToBeCreated)
+        public async Task<IEnumerable<EmployeeModel>> InsertEmployeesAsync(IEnumerable<EmployeeModel> employeesToBeCreated)
         {
             IEnumerable<EmployeeEntity> employeeEntities =
                 _mappingCoordinator.Map<EmployeeModel, EmployeeEntity>(employeesToBeCreated);
@@ -48,7 +48,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo
                 await EmployeeCollection.InsertManyAsync(
                     employeeEntities,new InsertManyOptions() { IsOrdered=false});
 
-                return employeeEntities;
+                return _mappingCoordinator.Map<EmployeeEntity, EmployeeModel>(employeeEntities);
             }
             catch (MongoConnectionException ex)
             {

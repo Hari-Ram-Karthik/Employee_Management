@@ -14,6 +14,6 @@ namespace EmployeeManagement.WebApi.Model.API.Responses
         /// <summary>
         /// Information about the created employee.
         /// </summary>
-        public CreateEmployeeResponseObject CreatedEmployee { get; set; }
+        public IList<CreateEmployeeResponseObject> CreatedEmployee { get; set; }
     }
 }
