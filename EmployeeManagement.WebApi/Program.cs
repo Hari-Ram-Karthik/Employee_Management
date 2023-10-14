@@ -1,50 +1,21 @@
 using EmployeeManagement.WebApi;
-using EmployeeManagement.WebApi.Domain;
-using EmployeeManagement.WebApi.Infrastructure.Mappers;
-using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
-using MongoDB.Driver;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+using EmployeeManagement.WebApi.Infrastructure.Bootstrap;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+ISettingsProvider settings = new ApplicationSettingsProvider(builder.Configuration);
 
-// Add services to the container.
+WebApplication application = builder
+    .AddLogging(settings)
+    .AddServices(settings)
+    .Build();
 
-builder.Services.AddControllers();
+await application.Configure().InitializeAsync();
 
-builder.Services.AddEndpointsApiExplorer();
+application.Run();
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
-});
-
-
-builder.Services.AddSingleton<IMappingCoordinator, MappingCoordinator>();
-
-builder.Services.AddTransient<IEmployeeDomainService,EmployeeDomainService>();
-
-builder.Services
-                .AddSingleton<IEmployeeRepository, MongoEmployeeRepository>()
-                .AddSingleton<MongoClientBase, MongoClient>((serviceProvider) => new MongoClient(Environment.GetEnvironmentVariable("MongoConnectionString")));
-
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+/// <summary>
+/// Defining partial class for creating in-memory server in component tests
+/// </summary>
+#pragma warning disable CA1050 // Declare types in namespaces
+public partial class Program { }
+#pragma warning restore CA1050 // Declare types in namespaces
