@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.WebApi.Model.API.Responses
 {
-    public class CreateEmployeeResponseObject
+    public class DeleteEmployeeResponse
     {
         /// <summary>
         /// Id of the employee.
@@ -35,5 +35,11 @@ namespace EmployeeManagement.WebApi.Model.API.Responses
         /// </summary>
         /// <example>2018-05-09T15:07:42.527921Z</example>
         public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// ISO-8601 formatted timestamp indicating when the employee was last updated.
+        /// </summary>
+        /// <example>2018-05-09T15:07:42.527921Z</example>
+        public DateTime UpdateAt { get; set; }
     }
 }

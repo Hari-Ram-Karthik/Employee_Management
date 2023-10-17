@@ -1,9 +1,14 @@
 ﻿using EmployeeManagement.WebApi.Model.API;
+using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity
 {
     public class EmployeeEntity
     {
+        [Required]
+        [BsonId]
+        public Guid _id { get; set; }
         /// <summary>
         /// Id of the employee.
         /// </summary>
@@ -29,12 +34,6 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity
         public string NickName { get; set; }
 
         /// <summary>
-        /// Date of birth of employee.
-        /// </summary>
-        /// <example>18/05/2002</example>
-        public DateOnly DateOfBirth { get; set; }
-
-        /// <summary>
         /// City of employee.
         /// </summary>
         /// <example>Coimbatore</example>
@@ -47,12 +46,12 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity
         public string State { get; set; }
 
         /// <summary>
-        /// ISO-8601 formatted timestamp indicating when the specification was created.
+        /// ISO-8601 formatted timestamp indicating when the employee was created.
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// ISO-8601 formatted timestamp indicating when the specification was last updated.
+        /// ISO-8601 formatted timestamp indicating when the employee was last updated.
         /// </summary>
         public DateTime UpdatedAt { get; set; }
     }

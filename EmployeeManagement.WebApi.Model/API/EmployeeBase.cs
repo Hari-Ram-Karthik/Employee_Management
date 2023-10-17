@@ -38,13 +38,6 @@ namespace EmployeeManagement.WebApi.Model.API
         public string? NickName { get; set; }
 
         /// <summary>
-        /// Date of birth of employee.
-        /// </summary>
-        /// <example>18/05/2002</example>
-        [Required]
-        public DateOnly DateOfBirth { get; set; }
-
-        /// <summary>
         /// City of employee.
         /// </summary>
         /// <example>Coimbatore</example>

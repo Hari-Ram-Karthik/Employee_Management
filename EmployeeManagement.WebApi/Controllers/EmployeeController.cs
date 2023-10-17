@@ -5,6 +5,7 @@ using EmployeeManagement.WebApi.Model.API.Request;
 using EmployeeManagement.WebApi.Model.API.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
+using System.Collections.Generic;
 using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -37,7 +38,7 @@ namespace EmployeeManagement.WebApi.Controllers
         /// </summary>
         /// <param name="request">Information to create employee</param>
         /// <response code="201">Create Employee Success Response</response>
-        [HttpPost]
+        [HttpPost("CreateEmployee")]
         [ProducesResponseType(typeof(CreateEmployeeResponse), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.NotImplemented)]
         public async Task<IActionResult> CreateEmployeeAsync(CreateEmployeeRequest request)
@@ -53,36 +54,84 @@ namespace EmployeeManagement.WebApi.Controllers
             return Json(response,HttpStatusCode.Created);
         }
 
-
-        [HttpGet]
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// Get employees details
+        /// </summary>
+        /// <response code="200">Displayed Employees detail Success Response</response>
+        [HttpGet("Employee")]
+        [ProducesResponseType(typeof(GetEmployeeRespose), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.NotImplemented)]
+        public async Task<IActionResult> GetEmployees()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<EmployeeModel> employees = await _employeeDomainService.GetEmployees();
+            GetEmployeeRespose response = new()
+            {
+                employeeResponse = _mappingCoordinator.Map<EmployeeModel, GetEmployeeResponseObject>((employees.ToList())).ToList()
+            };
+
+            return Json(response, HttpStatusCode.OK);
         }
 
-        // GET api/<EmployeeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// Get employees details
+        /// </summary>
+        /// <response code="200">Displayed Employees detail Success Response</response>
+        [HttpPost("EmployeeByIds")]
+        [ProducesResponseType(typeof(GetEmployeeRespose), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.NotImplemented)]
+        public async Task<IActionResult> GetEmployeesById(List<int> employeeIds)
         {
-            return "value";
+            IEnumerable<EmployeeModel> employees = await _employeeDomainService.GetEmployeesById(employeeIds);
+            GetEmployeeRespose response = new()
+            {
+                employeeResponse = _mappingCoordinator.Map<EmployeeModel, GetEmployeeResponseObject>((employees.ToList())).ToList()
+            };
+
+            return Json(response, HttpStatusCode.OK);
         }
 
-        //// POST api/<EmployeeController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        // PUT api/<EmployeeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// Get employees details
+        /// </summary>
+        /// <response code="200">Displayed Employees detail Success Response</response>
+        /// <response code="404">Employees not found Response</response>
+        [HttpPut("EditEmployee")]
+        [ProducesResponseType(typeof(GetEmployeeRespose), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string),(int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> EditEmployee(IEnumerable<EditEmployeeRequest> employee)
         {
+            IEnumerable<EditEmployeeRequestModel> employeeToBeEdited = _mappingCoordinator.Map<EditEmployeeRequest, EditEmployeeRequestModel>(employee);
+            IEnumerable<EmployeeModel> employees = await _employeeDomainService.EditEmployee(employeeToBeEdited);
+            if (employees.Count() == 0)
+            {
+                return Json("Employee not found",HttpStatusCode.NotFound);
+            }
+            IEnumerable<EditEmployeeRespose> response = _mappingCoordinator.Map<EmployeeModel, EditEmployeeRespose>(employees);
+
+            return Json(response, HttpStatusCode.OK);
         }
 
-        // DELETE api/<EmployeeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// Delete employee by Ids
+        /// </summary>
+        /// <param name="employeeId">Id of employee to delete</param>
+        /// <returns>Displayed Employees detail Success Response</returns>
+        /// <response code="200">Employees deleted Success Response</response>
+        /// <response code="404">Employees not found Response</response>
+        [HttpDelete("DeleteEmployeeById")]
+        [ProducesResponseType(typeof(DeleteEmployeeResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> DeleteEmployee(IEnumerable<DeleteEmployeeRequest> employeeId)
         {
+            IEnumerable<DeleteEmployeeRequestModel> employeeToBeDeleted = _mappingCoordinator.Map<DeleteEmployeeRequest, DeleteEmployeeRequestModel>(employeeId);
+            IEnumerable<EmployeeModel> employeeDetails = await _employeeDomainService.DeleteEmployee(employeeToBeDeleted);
+            if(employeeDetails.Count() == 0)
+            {
+                return Json("Employee not found", HttpStatusCode.NotFound);
+            }
+            IEnumerable<DeleteEmployeeResponse> response = _mappingCoordinator.Map<EmployeeModel, DeleteEmployeeResponse>(employeeDetails);
+
+            return Json(response, HttpStatusCode.OK);
         }
 
         private JsonResult Json(object value, HttpStatusCode httpStatusCode)

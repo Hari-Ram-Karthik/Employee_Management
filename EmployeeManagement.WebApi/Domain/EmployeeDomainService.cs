@@ -26,11 +26,37 @@ namespace EmployeeManagement.WebApi.Domain
             employees.ForEach(employee =>
             {
                 employee.CreatedAt = DateTime.UtcNow;
-                employee.UpdatedAt = DateTime.UtcNow;
             });
 
             IEnumerable<EmployeeModel> employeeModels = await _employeeRepository.InsertEmployeesAsync(employees);
             return employeeModels;
+        }
+
+        public async Task<IEnumerable<EmployeeModel>> EditEmployee(IEnumerable<EditEmployeeRequestModel> employee)
+        {
+            IEnumerable<EmployeeModel> employeeModel = _mappingCoordinator.Map<EditEmployeeRequestModel, EmployeeModel>(employee);
+            IEnumerable<EmployeeModel> employeeResponse = await _employeeRepository.EditEmployeeAsync(employeeModel);
+
+            return employeeResponse;
+        }
+        
+        public async Task<IEnumerable<EmployeeModel>> DeleteEmployee(IEnumerable<DeleteEmployeeRequestModel> employeeId)
+        {
+            IEnumerable<EmployeeModel> employeeResponse = await _employeeRepository.DeleteEmployeeAsync(employeeId);
+
+            return employeeResponse;
+        }
+
+        public async Task<IEnumerable<EmployeeModel>> GetEmployees()
+        {
+            IEnumerable<EmployeeModel> employees = await _employeeRepository.GetEmployeesAsync();
+            return employees;
+        }
+
+        public async Task<IEnumerable<EmployeeModel>> GetEmployeesById(List<int> employeeIds)
+        {
+            IEnumerable<EmployeeModel> employees = await _employeeRepository.GetEmployeesByIdAsync(employeeIds);
+            return employees;
         }
     }
 }

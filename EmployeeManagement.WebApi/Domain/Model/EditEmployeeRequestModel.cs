@@ -1,29 +1,25 @@
 ﻿using EmployeeManagement.WebApi.Model.API;
-using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement.WebApi.Domain.Model
 {
-    public class CreateEmployeeRequestModel
+    public class EditEmployeeRequestModel
     {
         /// <summary>
         /// Id of the employee.
         /// </summary>
         /// <example>1721</example>
-        [Required]
         public int EmployeeID { get; set; }
 
         /// <summary>
         /// Employee Name
         /// </summary>
         /// <example>Hari</example>
-        [Required]
         public string Name { get; set; }
 
         /// <summary>
         /// Gender of the employee.
         /// </summary>
         /// <example>Male</example>
-        [Required]
         public Gender Gender { get; set; }
 
         /// <summary>
@@ -43,5 +39,15 @@ namespace EmployeeManagement.WebApi.Domain.Model
         /// </summary>
         /// <example>Tamil Nadu</example>
         public string State { get; set; }
+
+        /// <summary>
+        /// ISO-8601 formatted timestamp indicating when the specification was created.
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// ISO-8601 formatted timestamp indicating when the specification was last updated.
+        /// </summary>
+        public DateTime? UpdatedAt { get; set; }
     }
 }

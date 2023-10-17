@@ -30,12 +30,6 @@ namespace EmployeeManagement.WebApi.Domain.Model
         public string NickName { get; set; }
 
         /// <summary>
-        /// Date of birth of employee.
-        /// </summary>
-        /// <example>18/05/2002</example>
-        public DateOnly DateOfBirth { get; set; }
-
-        /// <summary>
         /// City of employee.
         /// </summary>
         /// <example>Coimbatore</example>
@@ -55,6 +49,6 @@ namespace EmployeeManagement.WebApi.Domain.Model
         /// <summary>
         /// ISO-8601 formatted timestamp indicating when the specification was last updated.
         /// </summary>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

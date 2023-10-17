@@ -47,11 +47,16 @@ namespace EmployeeManagement.WebApi.Infrastructure.Mappers
         private void MapControllerToDomain(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestObject, CreateEmployeeRequestModel>();
+            cfg.CreateMap<EditEmployeeRequest, EditEmployeeRequestModel>();
+            cfg.CreateMap<DeleteEmployeeRequest, DeleteEmployeeRequestModel>();
         }
         private void MapDomainToController(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestModel, CreateEmployeeRequestObject>();
             cfg.CreateMap<EmployeeModel, CreateEmployeeResponseObject>();
+            cfg.CreateMap<EmployeeModel, GetEmployeeResponseObject>();
+            cfg.CreateMap<EmployeeModel, EditEmployeeRespose>();
+            cfg.CreateMap<EmployeeModel, DeleteEmployeeResponse>();
         }
 
         private void MapDomainToEntity(IMapperConfigurationExpression cfg)
@@ -66,6 +71,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Mappers
         private void MapDomainToDomain(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestModel, EmployeeModel>();
+            cfg.CreateMap<EditEmployeeRequestModel, EmployeeModel>();
         }
     }
 }
