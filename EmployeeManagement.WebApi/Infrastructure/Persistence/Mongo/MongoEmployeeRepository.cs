@@ -17,7 +17,7 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo
         private const string DefaultEmployeeDatabaseName = "employee";
         private const string EmployeeCollectionName = "employee";
         private readonly IMongoDatabase _database;
-        private readonly ILogger _logger;
+        private readonly ILogger<MongoEmployeeRepository> _logger;
         private readonly IMappingCoordinator _mappingCoordinator;
 
         /// <summary>
@@ -27,12 +27,18 @@ namespace EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo
         /// <param name="mappingCoordinator">Dependency injection for mapper.</param>
         /// <param name="client">Dependency injection for settings mongo client.</param>
         public MongoEmployeeRepository(
-            //ILogger logger,
+            ISettingsProvider settingsProvider,
+            ILogger<MongoEmployeeRepository> logger,
             IMappingCoordinator mappingCoordinator,
             MongoClientBase client)
         {
-            _database = GetDatabase(client, "mongodb://localhost:27017");
-            //_logger = logger;
+         //   var dbHost = Environment.GetEnvironmentVariable("db_host");
+            //var connectionString = $"mongodb://{dbHost}:27017/employee";
+
+            ////var mongoUrl=MongoUrl.Create(connectionString);
+            ////var mongoClient = new MongoClient(mongoUrl);
+            _database = GetDatabase(client, settingsProvider.MongoConnectionString);
+            _logger = logger;
             _mappingCoordinator = mappingCoordinator;
         }
         private IMongoDatabase GetDatabase(MongoClientBase client, string connectionString)

@@ -8,6 +8,6 @@
         /// <summary>
         /// MongoDB connection string
         /// </summary>
-        public const string MongoConnectionString = "mongodb://localhost:27017/Employee";
+        public const string MongoConnectionString = "EMPLOYEEMANAGEMENT_MONGOCONNECTIONSTRING";
     }
 }

@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+
+  employeemanagement.webapi:
+    image: ${DOCKER_REGISTRY-}employeemanagementwebapi
+    build:
+      context: .
+      dockerfile: EmployeeManagement.WebApi/Dockerfile
+    environment:
+      EMPLOYEEMANAGEMENT_MONGOCONNECTIONSTRING: "mongodb://mongodb:27017/employee"
+      
+    ports:
+      - "16102"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"

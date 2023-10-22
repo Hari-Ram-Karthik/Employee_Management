@@ -26,6 +26,7 @@ namespace EmployeeManagement.WebApi.Domain
             employees.ForEach(employee =>
             {
                 employee.CreatedAt = DateTime.UtcNow;
+                employee.UpdatedAt = DateTime.UtcNow;
             });
 
             IEnumerable<EmployeeModel> employeeModels = await _employeeRepository.InsertEmployeesAsync(employees);

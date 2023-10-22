@@ -49,6 +49,6 @@ namespace EmployeeManagement.WebApi.Domain.Model
         /// <summary>
         /// ISO-8601 formatted timestamp indicating when the specification was last updated.
         /// </summary>
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EmployeeManagement.Unit.Tests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MongoConnectionString": "mongodb://localhost:27017"
+      }
+    }
+  }
+}

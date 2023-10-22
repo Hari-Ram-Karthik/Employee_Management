@@ -4,7 +4,9 @@ using EmployeeManagement.WebApi.Domain.Model;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
 using EmployeeManagement.WebApi.Model.API.Request;
 using EmployeeManagement.WebApi.Model.API.Responses;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("EmployeeManagement.Unit.Tests")]
 namespace EmployeeManagement.WebApi.Infrastructure.Mappers
 {
     /// <summary>
@@ -47,30 +49,37 @@ namespace EmployeeManagement.WebApi.Infrastructure.Mappers
         private void MapControllerToDomain(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestObject, CreateEmployeeRequestModel>();
-            cfg.CreateMap<EditEmployeeRequest, EditEmployeeRequestModel>();
+            cfg.CreateMap<EditEmployeeRequest, EditEmployeeRequestModel>()
+                .ForMember(x => x.CreatedAt, option => option.Ignore())
+                .ForMember(x => x.UpdatedAt, option => option.Ignore());
             cfg.CreateMap<DeleteEmployeeRequest, DeleteEmployeeRequestModel>();
         }
         private void MapDomainToController(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateEmployeeRequestModel, CreateEmployeeRequestObject>();
             cfg.CreateMap<EmployeeModel, CreateEmployeeResponseObject>();
-            cfg.CreateMap<EmployeeModel, GetEmployeeResponseObject>();
+            cfg.CreateMap<EmployeeModel, GetEmployeeResponseObject>()
+                .ForMember(x=>x.UpdateAt,option=>option.Ignore());
             cfg.CreateMap<EmployeeModel, EditEmployeeRespose>();
-            cfg.CreateMap<EmployeeModel, DeleteEmployeeResponse>();
+            cfg.CreateMap<EmployeeModel, DeleteEmployeeResponse>()
+                .ForMember(x => x.UpdateAt, option => option.Ignore());
         }
 
         private void MapDomainToEntity(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<EmployeeModel, EmployeeEntity>();
+            cfg.CreateMap<EmployeeModel, EmployeeEntity>()
+                .ForMember(x => x._id, option => option.Ignore());
         }
 
         private void MapEntityToDomain(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<EmployeeEntity,EmployeeModel>();
+            cfg.CreateMap<EmployeeEntity, EmployeeModel>();
         }
         private void MapDomainToDomain(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<CreateEmployeeRequestModel, EmployeeModel>();
+            cfg.CreateMap<CreateEmployeeRequestModel, EmployeeModel>()
+                .ForMember(x => x.CreatedAt, option => option.Ignore())
+                .ForMember(x => x.UpdatedAt, option => option.Ignore());
             cfg.CreateMap<EditEmployeeRequestModel, EmployeeModel>();
         }
     }
