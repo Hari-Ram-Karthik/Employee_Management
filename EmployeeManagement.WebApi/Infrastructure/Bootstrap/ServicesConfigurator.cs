@@ -1,14 +1,9 @@
 ﻿using EmployeeManagement.WebApi.Infrastructure.Mappers;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.OpenApi.Models;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 using MongoDB.Driver;
 using System.Reflection;
-using System;
 using EmployeeManagement.WebApi.Domain;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo;
 using EmployeeManagement.WebApi.Model.API.Request;
-using EmployeeManagement.WebApi.Model.API;
 
 namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
 {

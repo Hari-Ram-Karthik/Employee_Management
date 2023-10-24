@@ -21,8 +21,6 @@ namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
         public static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder, ISettingsProvider settings)
         {
             builder.Services.AddLogging();
-            //builder.Logging.ClearProviders();
-            //builder.Logging.AddConsole();
 
             return builder;
         }

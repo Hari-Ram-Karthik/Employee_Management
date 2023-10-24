@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using EmployeeManagement.WebApi.Domain;
+﻿using EmployeeManagement.WebApi.Domain;
 using EmployeeManagement.WebApi.Domain.Model;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
-using EmployeeManagement.WebApi.Model.API.Request;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;

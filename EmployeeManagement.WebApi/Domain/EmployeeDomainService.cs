@@ -1,10 +1,4 @@
 ﻿using EmployeeManagement.WebApi.Domain.Model;
-using EmployeeManagement.WebApi.Infrastructure.Mappers;
-using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
-using EmployeeManagement.WebApi.Model.API.Request;
-using EmployeeManagement.WebApi.Model.API.Responses;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
 namespace EmployeeManagement.WebApi.Domain
 {

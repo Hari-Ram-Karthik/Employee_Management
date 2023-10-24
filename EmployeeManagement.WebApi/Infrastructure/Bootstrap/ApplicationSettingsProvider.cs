@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
-using System.Xml;
-
-namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
+﻿namespace EmployeeManagement.WebApi.Infrastructure.Bootstrap
 {
     internal class ApplicationSettingsProvider : ISettingsProvider
     {

@@ -4,13 +4,9 @@ using EmployeeManagement.WebApi.Infrastructure.Mappers;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo;
 using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
 using EmployeeManagement.WebApi.Model.API;
-using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Moq;
-using SharpCompress.Common;
-using System.Linq.Expressions;
 using System.Text;
 using Xunit;
 

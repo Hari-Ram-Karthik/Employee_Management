@@ -1,6 +1,4 @@
 ﻿using EmployeeManagement.WebApi.Domain.Model;
-using EmployeeManagement.WebApi.Model.API.Request;
-using System.Diagnostics.Tracing;
 
 namespace EmployeeManagement.WebApi.Domain
 {

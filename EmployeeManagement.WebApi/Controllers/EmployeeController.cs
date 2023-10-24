@@ -1,11 +1,8 @@
 ﻿using EmployeeManagement.WebApi.Domain;
 using EmployeeManagement.WebApi.Domain.Model;
-using EmployeeManagement.WebApi.Infrastructure.Mappers;
 using EmployeeManagement.WebApi.Model.API.Request;
 using EmployeeManagement.WebApi.Model.API.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Constraints;
-using System.Collections.Generic;
 using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

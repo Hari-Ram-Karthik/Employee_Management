@@ -1,6 +1,4 @@
 ﻿using EmployeeManagement.WebApi.Domain.Model;
-using EmployeeManagement.WebApi.Infrastructure.Persistence.Mongo.Entity;
-using EmployeeManagement.WebApi.Model.API.Request;
 
 namespace EmployeeManagement.WebApi.Domain
 {

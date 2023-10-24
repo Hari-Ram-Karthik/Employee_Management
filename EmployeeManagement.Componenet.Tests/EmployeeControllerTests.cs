@@ -1,15 +1,8 @@
 ﻿using EmployeeManagement.WebApi.Model.API;
 using EmployeeManagement.WebApi.Model.API.Request;
 using EmployeeManagement.WebApi.Model.API.Responses;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EmployeeManagement.Componenet.Tests
